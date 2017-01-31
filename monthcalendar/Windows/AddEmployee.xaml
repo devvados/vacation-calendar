@@ -1,0 +1,21 @@
+﻿<controls:MetroWindow x:Class="MonthCalendar.AddEmployee"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:local="clr-namespace:MonthCalendar"
+        mc:Ignorable="d" Icon="/Icons/personal.ico"
+        GlowBrush="{DynamicResource AccentColorBrush}"
+        Height="270" Width="200" ResizeMode="NoResize">
+    <Grid>
+        <StackPanel Name="SpAdd" Margin="5">
+            <Label Name="LabName" Margin="5" Height="30" Width="Auto" Content="Имя" HorizontalContentAlignment="Center"/>
+            <TextBox Name="TbName" Margin="5" Height="30" Width="Auto"/>
+            <Label Name="LabSurname" Margin="5" Height="30" Width="Auto" Content="Фамилия" HorizontalContentAlignment="Center"/>
+            <TextBox Name="TbSurname" Margin="5" Height="30" Width="Auto"/>
+            <Button Name="BOk" Content="OK" Margin="15" Height="30" Width="60" Click="bOK_Click"/>
+        </StackPanel>
+
+    </Grid>
+</controls:MetroWindow>

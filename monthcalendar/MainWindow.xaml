@@ -1,0 +1,121 @@
+﻿<controls:MetroWindow  
+        x:Class="MonthCalendar.MainWindow"
+        x:Name="MainMetroWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MonthCalendar"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        mc:Ignorable="d"
+        Title="Список отпусков" TitleAlignment="Center" Height="500" Width="800" WindowState="Maximized"
+        GlowBrush="{DynamicResource AccentColorBrush}" StateChanged="Window_StateChanged" Closing="MainMetroWindow_Closing"
+        Icon="/Icons/calendar.ico" Loaded="MainMetroWindow_Loaded">
+    <Window.Resources>
+        <RoutedUICommand x:Key="CommandAdd" Text="Добавление" />
+        <RoutedUICommand x:Key="CommandRedDay" Text="Праздники"/>
+        <RoutedUICommand x:Key="CommandAbout" Text="О программе"/>
+        <RoutedUICommand x:Key="CommandHelp" Text="Помощь"/>
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="{StaticResource CommandAdd}" Executed="AddEmployee"/>
+        <CommandBinding Command="{StaticResource CommandRedDay}" Executed="AddRedDay"/>
+        <CommandBinding Command="{StaticResource CommandAbout}" Executed="About"/>
+        <CommandBinding Command="{StaticResource CommandHelp}" Executed="Help"/>
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Key="A"  Command="{StaticResource CommandAdd}"/>
+        <KeyBinding Key="R" Command="{StaticResource CommandRedDay}"/>
+        <KeyBinding Key="F1" Modifiers="Ctrl" Command="{StaticResource CommandAbout}"/>
+        <KeyBinding Key="H" Modifiers="Ctrl" Command="{StaticResource CommandHelp}"/>
+    </Window.InputBindings>
+    <controls:MetroWindow.RightWindowCommands>
+        <controls:WindowCommands>
+            <Button Content="О программе (Ctrl + F1)" Command="{StaticResource CommandAbout}"/>
+            <Button Content="Помощь (Ctrl + H)" Command="{StaticResource CommandHelp}"/>
+        </controls:WindowCommands>
+    </controls:MetroWindow.RightWindowCommands>
+    <controls:MetroWindow.LeftWindowCommands>
+        <controls:WindowCommands>
+            <Button x:Name="AddItem" Content="Добавить (A)" Foreground="White" Command="{StaticResource CommandAdd}"/>
+            <Button x:Name="AddRedLetterDay" Content="Праздники" Foreground="White" Command="{StaticResource CommandRedDay}"/>
+            <Button x:Name="ShowToolTip" Content="Напоминание" Foreground="White" Click="Show_ToolTip"/>
+        </controls:WindowCommands>
+    </controls:MetroWindow.LeftWindowCommands>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="30*"/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="GridLabel" Grid.Row="0" Margin="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Список рабочих" Margin="10,10,10,0" Grid.Column="0" 
+                   HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" 
+                   FontSize="15" FontWeight="SemiBold"/>
+            <Grid x:Name="GridChangeYear" Margin="10,10,10,0"  Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name='YearBack' Content="&lt;&lt;" Grid.Column="0" Click="bPreviousYear_Click"/>
+                <Button x:Name='YearNum' Grid.Column="1"/>
+                <Button x:Name='YearNext' Grid.Column="2" Content="&gt;&gt;" Click="bNextYear_Click"/>
+            </Grid>
+            <Grid x:Name="GridChangeMonth" Margin="10,10,10,0"  Grid.Column="1" Visibility="Collapsed">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name='MonthBack' Content="&lt;&lt;" Grid.Column="0" Click="bPreviousMonth_Click"/>
+                <Button x:Name='MonthNum' Grid.Column="1" Click="bMonthNum_Click"/>
+                <Button x:Name='MonthNext' Grid.Column="2" Content="&gt;&gt;" Click="bNextMonth_Click"/>
+            </Grid>
+        </Grid>
+        <Grid x:Name="GridMain" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="8*"/>
+            </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <TreeView x:Name="TreeViewWorkers" Grid.Column="0" Grid.Row="0" Margin="10" 
+                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                          BorderBrush="Gray" BorderThickness="1" 
+                          PreviewMouseRightButtonDown="TreeView_PreviewMouseRightButtonDown"/>
+                <Grid x:Name="GridButtons" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="butRefreshEmpList" Grid.Column="0" Margin="5" Content="Обновить"
+                        Click="butRefreshEmpList_Click"/>
+                    <Button x:Name="butSaveEmpList" Grid.Column="1" Margin="5" Content="Сохранить"
+                        Click="butSaveEmpList_Click"/>
+                </Grid>
+            </Grid>
+            <Grid x:Name="GridYear" Margin="10" Grid.Column="1" Background="WhiteSmoke" HorizontalAlignment="Stretch" Visibility="Visible">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30*"/>
+                    <ColumnDefinition Width="30*"/>
+                    <ColumnDefinition Width="30*"/>
+                    <ColumnDefinition Width="30*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="30*"/>
+                </Grid.RowDefinitions>
+            </Grid>
+            <Grid x:Name="GridMonth" Margin="5" Grid.Column="1" Background="WhiteSmoke" HorizontalAlignment="Stretch" Visibility="Collapsed"/>
+        </Grid>
+    </Grid>
+</controls:MetroWindow>

@@ -1,0 +1,25 @@
+﻿<controls:MetroWindow x:Class="MonthCalendar.NearestVacations"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:local="clr-namespace:MonthCalendar"
+        mc:Ignorable="d"
+        GlowBrush="{DynamicResource AccentColorBrush}"
+        Title="Напоминание" SizeToContent="WidthAndHeight">
+    <Grid>
+        <StackPanel Margin="10">
+            <Expander x:Name="ExpNearestVacations" Header="Отпуск через неделю" Width="300" IsExpanded="True">
+                <Grid x:Name="GridVacSoon">
+                    <ListBox x:Name="LBSoon"/>
+                </Grid>
+            </Expander>
+            <Expander x:Name="ExpEmployeesAtVacation" Header="В отпуске сейчас" Width="300" IsExpanded="False" >
+                <Grid x:Name="GridVacNow">
+                    <ListBox x:Name="LBNow"/>
+                </Grid>
+            </Expander>
+        </StackPanel>
+    </Grid>
+</controls:MetroWindow>

@@ -1,0 +1,57 @@
+﻿<controls:MetroWindow x:Class="MonthCalendar.RedDay"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:local="clr-namespace:MonthCalendar"
+        mc:Ignorable="d"
+        Title="Список праздников" Height="400" Width="450" ResizeMode="NoResize"
+        Closing="MetroWindow_Closing"
+        GlowBrush="{DynamicResource AccentColorBrush}"
+        Icon="/Icons/calendar.ico">
+    <Window.Resources>
+        <RoutedUICommand x:Key="CommandAddDay" Text="Добавление"/>
+        <RoutedUICommand x:Key="CommandSaveHolidays" Text="Сохранить"/>
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="{StaticResource CommandAddDay}" Executed="AddSelectedDay"/>
+    </Window.CommandBindings>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Calendar x:Name="CalendarControl" Margin="10" SelectionMode="MultipleRange"/>
+            <DockPanel Grid.Row="2" Margin="2">
+                <Button x:Name="butAddDay" Margin="10"  Width="90" Content="Добавить" Command="{StaticResource CommandAddDay}"/>
+            </DockPanel>
+                <Grid Grid.Row="1" Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <RadioButton x:Name="RbRedDay" Foreground="Red" FontWeight="Bold" IsChecked="True" Content="Праздничный" Margin="10" Grid.Row="0"/>
+                <RadioButton x:Name="RbShortDay" Foreground="Green" FontWeight="Bold" Content="Короткий" Margin="10" Grid.Row="1"/>
+            </Grid>
+        </Grid>
+        <ListBox x:Name="ListBoxOfDates" Grid.Column="1" Margin="15" BorderBrush="LightGray" BorderThickness="1.5">
+            <ListBox.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </ListBox.Resources>
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Удалить" Click="DelItemClick"/>
+                </ContextMenu>
+            </ListBox.ContextMenu>
+        </ListBox>
+    </Grid>
+</controls:MetroWindow>
