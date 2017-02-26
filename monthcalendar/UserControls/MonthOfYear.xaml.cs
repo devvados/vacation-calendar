@@ -24,7 +24,7 @@ namespace MonthCalendar
             DateTime curDate = dt;
             int curRow = 1;
             ButMonth.Content = curDate.ToString("MMMM");
-            for (var dayNum = 0; dayNum < DateTime.DaysInMonth(2016, dt.Month); dayNum++)
+            for (var dayNum = 0; dayNum < DateTime.DaysInMonth(curDate.Year, dt.Month); dayNum++)
             {
                 DayOfMonth dayOfMonth = new DayOfMonth();
 

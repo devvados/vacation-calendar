@@ -158,7 +158,7 @@ namespace MonthCalendar
             InitializeComponent();
 
             //добавляем иконку в трей
-            DrawIconInTray();
+            //DrawIconInTray();
   
             dtNotify.Tick += Show_ToolTip;
             dtNotify.Interval = new TimeSpan(0, 0, 0, 0, 0);
@@ -479,16 +479,16 @@ namespace MonthCalendar
         {
             if (this.WindowState == WindowState.Minimized)
             {
-                this.ShowInTaskbar = false;
-                MyNotifyIcon.BalloonTipTitle = "Вы свернули приложение...";
-                MyNotifyIcon.BalloonTipText = "Для того, чтобы развернуть, дважды кликните по иконке";
-                MyNotifyIcon.ShowBalloonTip(400);
+                this.ShowInTaskbar = true;
+                //MyNotifyIcon.BalloonTipTitle = "Вы свернули приложение...";
+                //MyNotifyIcon.BalloonTipText = "Для того, чтобы развернуть, дважды кликните по иконке";
+                //MyNotifyIcon.ShowBalloonTip(400);
                 //MyNotifyIcon.Visible = true;
             }
             else if (this.WindowState == WindowState.Normal)
             {
                 //MyNotifyIcon.Visible = false;
-                this.ShowInTaskbar = false;
+                this.ShowInTaskbar = true;
             }
         }
 
@@ -1015,9 +1015,12 @@ namespace MonthCalendar
         /// <param name="e"></param>
         private void bNextYear_Click(object sender, RoutedEventArgs e)
         {
-            SaveCurentYear();
-            curMonth = curMonth.AddYears(1);
-            ChangeYear(curMonth.Year);
+            if (curMonth.Year - DateTime.Now.Year < 4)
+            {
+                SaveCurentYear();
+                curMonth = curMonth.AddYears(1);
+                ChangeYear(curMonth.Year);
+            }
         }
 
         /// <summary>
@@ -1026,10 +1029,13 @@ namespace MonthCalendar
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void bPreviousYear_Click(object sender, RoutedEventArgs e)
-        {
-            SaveCurentYear();
-            curMonth = curMonth.AddYears(-1);
-            ChangeYear(curMonth.Year);
+        {  
+            if (curMonth.Year - DateTime.Now.Year > 0)
+            {
+                SaveCurentYear();
+                curMonth = curMonth.AddYears(-1);
+                ChangeYear(curMonth.Year);
+            }   
         }
         #endregion
 
@@ -1209,7 +1215,9 @@ namespace MonthCalendar
         /// <param name="e"></param>
         private void butSaveEmpList_Click(object sender, RoutedEventArgs e)
         {
-            foreach(var emp in _emps)
+            System.IO.File.WriteAllText(@"Employees.xml", string.Empty);
+
+            foreach (var emp in _emps)
             {
              foreach(var vac in emp.VacList)
                 {
@@ -1222,6 +1230,7 @@ namespace MonthCalendar
 
             using (FileStream fs = new FileStream("Employees.xml", FileMode.OpenOrCreate))
             {
+                fs.Flush();
                 try
                 {
                     serializerEmp.Serialize(fs, em);

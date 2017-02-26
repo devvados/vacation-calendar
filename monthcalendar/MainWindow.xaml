@@ -8,7 +8,7 @@
         xmlns:local="clr-namespace:MonthCalendar"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
-        Title="Список отпусков" TitleAlignment="Center" Height="500" Width="800" WindowState="Maximized"
+        Title="Список отпусков" TitleAlignment="Center" Height="700" Width="1200" WindowState="Maximized" MinHeight="700" MinWidth="1200"
         GlowBrush="{DynamicResource AccentColorBrush}" StateChanged="Window_StateChanged" Closing="MainMetroWindow_Closing"
         Icon="/Icons/calendar.ico" Loaded="MainMetroWindow_Loaded">
     <Window.Resources>
@@ -96,9 +96,9 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="butRefreshEmpList" Grid.Column="0" Margin="5" Content="Обновить"
+                    <Button x:Name="butRefreshEmpList" Grid.Column="0" Margin="10" Content="Обновить"
                         Click="butRefreshEmpList_Click"/>
-                    <Button x:Name="butSaveEmpList" Grid.Column="1" Margin="5" Content="Сохранить"
+                    <Button x:Name="butSaveEmpList" Grid.Column="1" Margin="10" Content="Сохранить"
                         Click="butSaveEmpList_Click"/>
                 </Grid>
             </Grid>
